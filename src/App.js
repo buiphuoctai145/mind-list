@@ -1,6 +1,6 @@
 import React from "react";
-import MindList from "./components/MindList";
 import "./App.css";
+import { MindList } from "./components/pages/MindList";
 
 function App() {
   return (
