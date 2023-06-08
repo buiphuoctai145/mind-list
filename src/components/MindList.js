@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CreateTask from "../modals/CreateTask";
+import CreateTask from "../modals/CreateTasks";
 
 const MindList = () => {
   const [modal, setModal] = useState(false);
