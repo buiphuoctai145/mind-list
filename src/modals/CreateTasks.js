@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-const createTask = ({modal, toggle}) => {
+const CreateTask = ({modal, toggle}) => {
     const [taskName, setTaskname] = useState('')
   return (
     <Modal isOpen={modal} toggle={toggle}>
@@ -26,4 +26,4 @@ const createTask = ({modal, toggle}) => {
   );
 };
 
-export default createTask;
+export default CreateTask;
