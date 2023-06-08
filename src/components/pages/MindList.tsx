@@ -15,7 +15,7 @@ export const MindList = () => {
         </button>
       </div>
       <div className="task-container"></div>
-      <CreateTask toggle={toggle} modal={modal} />
+      <CreateTask onClose={toggle} isVisible={modal} />
     </div>
   );
 };
