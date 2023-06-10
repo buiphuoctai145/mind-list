@@ -20,6 +20,12 @@ export const MindList = () => {
     setTodoList(newTodoList);
   };
 
+  const _onRemove = (index: number) => {
+    const newTodoList = [...todoList];
+    newTodoList.splice(index, 1);
+    setTodoList(newTodoList);
+  };
+
   return (
     <div>
       <div className="header-container test text-center">
@@ -30,7 +36,7 @@ export const MindList = () => {
       </div>
       <div className="flex flex-col gap-2 p-5">
         {todoList.map((todo, index) => (
-          <TaskItem data={todo} key={index} onCheck={() => _onCheck(index)} />
+          <TaskItem data={todo} key={index} onCheck={() => _onCheck(index)} onRemove={() => _onRemove(index)} />
         ))}
       </div>
       <ModalCreateTask onClose={() => setModal(false)} onCreate={_onCreate} isVisible={modal} />
