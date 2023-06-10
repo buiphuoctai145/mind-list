@@ -9,7 +9,7 @@ export const CreateTask = ({ isVisible, onClose }: { isVisible: boolean; onClose
     tasknamelabel:`block font-bold mb-2`,
     descriptionlabel:`block font-bold mb-2`,
     tasknameinput:`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline`,
-    descriptiontextarea:`block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`,
+    descriptiontextarea:`block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500`,
     createbutton:`bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline`,
     cancelbutton:`bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline`,
 
