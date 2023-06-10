@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
-import { Todo } from "./components";
+import { TodoPanel } from "./components";
 
 function App() {
   return (
     <div>
-      <Todo />
+      <TodoPanel />
     </div>
   );
 }

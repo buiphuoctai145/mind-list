@@ -1,0 +1,40 @@
+import React from "react";
+
+export const ModalCreateTask = ({ isVisible, onClose }: { isVisible: boolean; onClose: () => void }) => {
+  if (!isVisible) return null;
+  return (
+    <div className="fixed top-0 h-screen w-screen bg-black/80 flex flex-col items-center justify-center">
+      <div className="flex flex-col bg-white rounded-lg p-5">
+        <div className="text-2xl font-medium text-center">Create new task</div>
+        <div className="mb-4">
+          <label className="block font-bold mb-2">Task name</label>
+          <input
+            type="text"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div className="mt-2 mb-4 form-group">
+          <label className="block font-bold mb-2">Description</label>
+          <textarea
+            rows={6}
+            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            onClick={onClose}
+          >
+            Create
+          </button>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            onClick={onClose}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};

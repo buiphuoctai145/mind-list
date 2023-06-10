@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Task = (task: any) => {
+export const TaskItem = (task: any) => {
   return (
     <li className="li">
       <div className="row">

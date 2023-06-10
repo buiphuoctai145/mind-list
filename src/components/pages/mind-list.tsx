@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CreateTask } from "../modals";
+import { ModalCreateTask } from "../modals";
 
 export const MindList = () => {
   const [modal, setModal] = useState(false);
@@ -15,7 +15,7 @@ export const MindList = () => {
         </button>
       </div>
       <div className="task-container"></div>
-      <CreateTask onClose={toggle} isVisible={modal} />
+      <ModalCreateTask onClose={toggle} isVisible={modal} />
     </div>
   );
 };

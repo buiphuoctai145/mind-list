@@ -1,16 +1,6 @@
 import React from "react";
 
-export type Todo = {
-  taskID: string;
-  nameTask: string;
-  isCompleted: boolean;
-};
-
-type TodoProps = {
-  todo: Todo;
-};
-
-export const Row = ({ todo: { nameTask, isCompleted } }: TodoProps) => (
+export const ItemRow = ({ todo: { nameTask, isCompleted } }: any) => (
   <div>
     <p>{nameTask}</p>
     <div>
