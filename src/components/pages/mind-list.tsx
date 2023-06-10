@@ -6,6 +6,11 @@ export const MindList = () => {
   const toggle = () => {
     setModal(!modal);
   };
+
+  const _onCreate = (taskName: string, description: string) => {
+    console.log(taskName, description);
+  };
+
   return (
     <div>
       <div className="header-container test text-center">
@@ -15,7 +20,7 @@ export const MindList = () => {
         </button>
       </div>
       <div className="task-container"></div>
-      <ModalCreateTask onClose={toggle} isVisible={modal} />
+      <ModalCreateTask onClose={toggle} onCreate={_onCreate} isVisible={modal} />
     </div>
   );
 };
