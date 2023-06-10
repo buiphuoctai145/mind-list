@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { ModalCreateTask } from "../modals";
 import { Todo } from "src/types/todo";
+import { TaskItem } from "./task-item";
 
 export const MindList = () => {
   const [modal, setModal] = useState(false);
 
   const [todoList, setTodoList] = useState<Todo[]>([]);
-
-  const toggle = () => {
-    setModal(!modal);
-  };
 
   const _onCreate = (taskName: string, description: string) => {
     console.log(taskName, description);
@@ -27,14 +24,10 @@ export const MindList = () => {
       </div>
       <div className="flex flex-col gap-2 p-5">
         {todoList.map((todo, index) => (
-          <div key={index} className="flex flex-col bg-gray-50 shadow p-2 rounded-sm">
-            <div className="font-bold text-xs">{index + 1}</div>
-            <div className="font-bold text-lg">{todo.name}</div>
-            <div className="text-sm">{todo.description}</div>
-          </div>
+          <TaskItem data={todo} key={index} />
         ))}
       </div>
-      <ModalCreateTask onClose={toggle} onCreate={_onCreate} isVisible={modal} />
+      <ModalCreateTask onClose={() => setModal(false)} onCreate={_onCreate} isVisible={modal} />
     </div>
   );
 };
