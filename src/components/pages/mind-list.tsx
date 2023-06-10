@@ -14,6 +14,12 @@ export const MindList = () => {
     setTodoList((current) => [...current, { name: taskName, description }]);
   };
 
+  const _onCheck = (index: number) => {
+    const newTodoList = [...todoList];
+    newTodoList[index].checked = !newTodoList[index].checked;
+    setTodoList(newTodoList);
+  };
+
   return (
     <div>
       <div className="header-container test text-center">
@@ -24,7 +30,7 @@ export const MindList = () => {
       </div>
       <div className="flex flex-col gap-2 p-5">
         {todoList.map((todo, index) => (
-          <TaskItem data={todo} key={index} />
+          <TaskItem data={todo} key={index} onCheck={() => _onCheck(index)} />
         ))}
       </div>
       <ModalCreateTask onClose={() => setModal(false)} onCreate={_onCreate} isVisible={modal} />
