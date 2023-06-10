@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
-import { MindList } from "./components/pages/MindList";
-
+import { Todo } from "./components/Todo";
+ 
 function App() {
   return (
-    <div className="App">
-      <MindList />
+    <div>
+      <Todo />
     </div>
   );
 }

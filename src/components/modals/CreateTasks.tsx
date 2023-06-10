@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState} from "react";
 
 export const CreateTask = ({ isVisible, onClose }: { isVisible: boolean; onClose: () => void }) => {
-  // const [taskName, setTaskname] = useState("");
+
   const style = {
-    modal: `fixed top-0 h-screen w-screen bg-black/80 flex flex-col items-center justify-center`,
+    modal: ``,
     container: `flex flex-col bg-white rounded-lg p-5`,
     modalheader:`text-2xl font-medium text-center`,
     tasknamelabel:`block font-bold mb-2`,
@@ -16,7 +16,7 @@ export const CreateTask = ({ isVisible, onClose }: { isVisible: boolean; onClose
   };
   if (!isVisible) return null;
   return (
-    <div className={style.modal}>
+    <div className='fixed top-0 h-screen w-screen bg-black/80 flex flex-col items-center justify-center'>
       <div className={style.container}>
         <div className={style.modalheader}>Create new task</div>
         <div className="mb-4">
