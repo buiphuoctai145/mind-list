@@ -1,5 +1,4 @@
 import React from "react";
-import { data } from "../types/todo";
 
 export type Todo = {
   taskID: string;
@@ -15,8 +14,10 @@ export const Row = ({ todo: { nameTask, isCompleted } }: TodoProps) => (
   <div>
     <p>{nameTask}</p>
     <div>
-      <button aria-label="Delete a task" onClick={() => null}>X</button>
+      <button aria-label="Delete a task" onClick={() => null}>
+        X
+      </button>
       <input type="checkbox" checked={isCompleted} onChange={() => null} />
     </div>
   </div>
-)
+);

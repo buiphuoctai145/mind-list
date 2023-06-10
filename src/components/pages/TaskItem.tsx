@@ -1,14 +1,12 @@
-import React from 'react';
-import Task from '../../types/todo'
+import React from "react";
 
-export const Task = (task:Task) => {
-    return (
-        <li className='li'>
-            <div className='row'>
-                <input type="checkbox"></input>
-                <p className=''>{task.nameTask}</p>
-            </div>
-        </li>
-    );
+export const Task = (task: any) => {
+  return (
+    <li className="li">
+      <div className="row">
+        <input type="checkbox"></input>
+        <p className="">{task.nameTask}</p>
+      </div>
+    </li>
+  );
 };
-

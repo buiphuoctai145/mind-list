@@ -1,12 +1,10 @@
-import { Row } from "./Row";
-import { data } from "../types/todo"
+import React from "react";
+import { MindList } from "./pages";
 
-const Todo = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+export const Todo = () => {
+  return (
+    <div>
+      <MindList />
+    </div>
+  );
 };
-
-export default Todo;
