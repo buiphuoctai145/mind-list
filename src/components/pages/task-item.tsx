@@ -11,7 +11,7 @@ export const TaskItem = ({
   onRemove?: () => void;
 }) => {
   return (
-    <div className="flex bg-gray-100 shadow p-2 items-center rounded-sm">
+    <div className={`flex shadow p-2 items-center rounded-sm" ${data.checked ? "bg-gray-500" : "bg-green-300"}`}>
       <div className="flex flex-col flex-1">
         <div
           className="w-6 h-6 bg-white rounded-md border border-gray-300 flex flex-col items-center justify-center"
