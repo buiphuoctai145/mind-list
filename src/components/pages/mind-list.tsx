@@ -8,6 +8,8 @@ export const MindList = () => {
 
   const [todoList, setTodoList] = useState<Todo[]>([]);
 
+  const [completedTask, setCompletedTask] = useState(0)
+
   const _onCreate = (taskName: string, description: string) => {
     console.log(taskName, description);
     // setTodoList([...todoList, { name: taskName, description }]);
@@ -16,6 +18,8 @@ export const MindList = () => {
 
   const _onCheck = (index: number) => {
     const newTodoList = [...todoList];
+    const isChecked = newTodoList[index].checked;
+    setCompletedTask(completedTask + (isChecked ? -1 : 1)) 
     newTodoList[index].checked = !newTodoList[index].checked;
     setTodoList(newTodoList);
   };
@@ -25,6 +29,8 @@ export const MindList = () => {
     newTodoList.splice(index, 1);
     setTodoList(newTodoList);
   };
+
+  // const todoRemaining = todoList.length > 0;
 
   return (
     <div>
@@ -39,6 +45,10 @@ export const MindList = () => {
           <TaskItem data={todo} key={index} onCheck={() => _onCheck(index)} onRemove={() => _onRemove(index)} />
         ))}
       </div>
+      <div className="flex items-center"></div>
+      {
+        todoList.length === 0 ? <p>Please add task</p> : <p>{completedTask} / {todoList.length} completed</p>
+      }
       <ModalCreateTask onClose={() => setModal(false)} onCreate={_onCreate} isVisible={modal} />
     </div>
   );
