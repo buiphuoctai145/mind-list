@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { ModalCreateTask } from "../modals";
 import { Todo } from "src/types/todo";
 import { TaskItem } from "./task-item";
@@ -8,25 +8,14 @@ export const MindList = () => {
 
   const [todoList, setTodoList] = useState<Todo[]>(TEST_DATA);
 
-  const [completedTask, setCompletedTask] = useState(0);
-
-  const _onCreate = (
-    taskName: string,
-    description: string,
-    category: string
-  ) => {
+  const _onCreate = (taskName: string, description: string, category: string) => {
     console.log(taskName, description, category);
     // setTodoList([...todoList, { name: taskName, description }]);
-    setTodoList((current) => [
-      ...current,
-      { name: taskName, description, category },
-    ]);
+    setTodoList((current) => [...current, { name: taskName, description, category }]);
   };
 
   const _onCheck = (index: number) => {
     const newTodoList = [...todoList];
-    const isChecked = newTodoList[index].checked;
-    setCompletedTask(completedTask + (isChecked ? -1 : 1));
     newTodoList[index].checked = !newTodoList[index].checked;
     setTodoList(newTodoList);
   };
@@ -37,14 +26,14 @@ export const MindList = () => {
     setTodoList(newTodoList);
   };
 
+  // const completedTask = todoList.filter((item) => item.checked).length;
+  const completedTask = useMemo(() => todoList.filter((item) => item.checked).length, [todoList]);
+
   return (
     <div>
       <div className="header-container test text-center">
         <h3>MindList</h3>
-        <button
-          className="mt-3 bg-blue-600 py-1 px-5 rounded-md text-white"
-          onClick={() => setModal(true)}
-        >
+        <button className="mt-3 bg-blue-600 py-1 px-5 rounded-md text-white" onClick={() => setModal(true)}>
           Create task
         </button>
       </div>
@@ -58,23 +47,14 @@ export const MindList = () => {
               <th scope="col" className="px-6 py-3">
                 Category
               </th>
-              <th scope="col" className="px-6 py-3">
-                
-              </th>
+              <th scope="col" className="px-6 py-3"></th>
             </tr>
           </thead>
-          <tbody>
-
-          </tbody>
+          <tbody></tbody>
         </table>
         {todoList.map((todo, index) => (
-              <TaskItem
-                data={todo}
-                key={index}
-                onCheck={() => _onCheck(index)}
-                onRemove={() => _onRemove(index)}
-              />
-            ))}
+          <TaskItem data={todo} key={index} onCheck={() => _onCheck(index)} onRemove={() => _onRemove(index)} />
+        ))}
       </div>
       <div className="flex items-center"></div>
       {todoList.length === 0 ? (
@@ -84,11 +64,7 @@ export const MindList = () => {
           {completedTask} / {todoList.length} completed
         </p>
       )}
-      <ModalCreateTask
-        onClose={() => setModal(false)}
-        onCreate={_onCreate}
-        isVisible={modal}
-      />
+      <ModalCreateTask onClose={() => setModal(false)} onCreate={_onCreate} isVisible={modal} />
     </div>
   );
 };
@@ -104,24 +80,24 @@ const TEST_DATA = [
     description: "an com",
     category: "housework",
   },
-  // {
-  //     "name": "nau com",
-  //     "description": "nau com",
-  //     "category": "housework"
-  // },
-  // {
-  //     "name": "quet nha",
-  //     "description": "quet nha",
-  //     "category": "housework"
-  // },
-  // {
-  //     "name": "freelance",
-  //     "description": "di lam",
-  //     "category": "job"
-  // },
-  // {
-  //     "name": "qc",
-  //     "description": "di lam",
-  //     "category": "job"
-  // }
+  {
+    name: "nau com",
+    description: "nau com",
+    category: "housework",
+  },
+  {
+    name: "quet nha",
+    description: "quet nha",
+    category: "housework",
+  },
+  {
+    name: "freelance",
+    description: "di lam",
+    category: "job",
+  },
+  {
+    name: "qc",
+    description: "di lam",
+    category: "job",
+  },
 ];
