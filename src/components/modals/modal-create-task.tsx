@@ -5,13 +5,11 @@ export const ModalCreateTask = ({
   onClose,
   onCreate,
   categories,
-  setCategories,
 }: {
   isVisible: boolean;
   onClose: () => void;
   onCreate: (taskName: string, description: string, category: string) => void;
   categories: string[];
-  setCategories: (categories: string[]) => void;
 }) => {
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
@@ -21,11 +19,6 @@ export const ModalCreateTask = ({
   const _onCreate = () => {
     onCreate(taskName, description, category);
     onClose();
-  };
-
-  const _onAddCategory = () => {
-    // @ts-ignore
-    setCategories((current) => [...current, category]);
   };
 
   if (!isVisible) return null;
@@ -61,9 +54,6 @@ export const ModalCreateTask = ({
               onChange={(e) => setCategory(e.target.value)}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
             />
-            <button className="inline p-1 h-6 bg-blue-500 text-white rounded self-center" onClick={_onAddCategory}>
-              <i className="">+</i>
-            </button>
           </div>
           <select
             onChange={(e) => setCategory(e.target.value)}

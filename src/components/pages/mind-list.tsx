@@ -12,6 +12,15 @@ export const MindList = () => {
   const _onCreate = (taskName: string, description: string, category: string) => {
     // setTodoList([...todoList, { name: taskName, description }]);
     setTodoList((current) => [...current, { name: taskName, description, category }]);
+
+    _addCategory(category);
+  };
+
+  const _addCategory = (category: string) => {
+    const findCategory = categories.find((item) => item === category);
+    if (!findCategory) {
+      setCategories((current) => [...current, category]);
+    }
   };
 
   const _onCheck = (index: number) => {
@@ -64,13 +73,7 @@ export const MindList = () => {
           {completedTask} / {todoList.length} completed
         </p>
       )}
-      <ModalCreateTask
-        categories={categories}
-        setCategories={setCategories}
-        onClose={() => setModal(false)}
-        onCreate={_onCreate}
-        isVisible={modal}
-      />
+      <ModalCreateTask categories={categories} onClose={() => setModal(false)} onCreate={_onCreate} isVisible={modal} />
     </div>
   );
 };
