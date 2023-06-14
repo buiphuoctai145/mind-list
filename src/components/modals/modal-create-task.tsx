@@ -14,7 +14,7 @@ export const ModalCreateTask = ({
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  // const [showCategory, setShowCategory] = useState(false);
+  const [showAutocompleted, setShowAutocompleted] = useState(false);
 
   const _onCreate = () => {
     onCreate(taskName, description, category);
@@ -47,23 +47,31 @@ export const ModalCreateTask = ({
         </div>
         <div className="mt-2 mb-4 pr-8 form-group">
           <label className="block font-bold mb-2">Category</label>
-          <div className="flex">
+          <div className="flex relative">
             <input
               type="text"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
+              onFocus={() => setShowAutocompleted(true)}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
             />
+            {showAutocompleted ? (
+              <div className="absolute top-10 w-full bg-white shadow">
+                {categories.map((category) => (
+                  <div
+                    key={category}
+                    className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                    onClick={() => {
+                      setCategory(category);
+                      setShowAutocompleted(false);
+                    }}
+                  >
+                    {category}
+                  </div>
+                ))}
+              </div>
+            ) : null}
           </div>
-          <select
-            onChange={(e) => setCategory(e.target.value)}
-            id="category"
-            className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5"
-          >
-            {categories?.map((item) => (
-              <option key={item}>{item}</option>
-            ))}
-          </select>
         </div>
         <BottomButtonRow onCancel={onClose} onCreate={_onCreate} />
       </div>
