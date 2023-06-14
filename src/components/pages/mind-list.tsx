@@ -7,9 +7,9 @@ export const MindList = () => {
   const [modal, setModal] = useState(false);
 
   const [todoList, setTodoList] = useState<Todo[]>(TEST_DATA);
+  const [categories, setCategories] = useState<string[]>(["homework", "job"]);
 
   const _onCreate = (taskName: string, description: string, category: string) => {
-    console.log(taskName, description, category);
     // setTodoList([...todoList, { name: taskName, description }]);
     setTodoList((current) => [...current, { name: taskName, description, category }]);
   };
@@ -64,7 +64,13 @@ export const MindList = () => {
           {completedTask} / {todoList.length} completed
         </p>
       )}
-      <ModalCreateTask onClose={() => setModal(false)} onCreate={_onCreate} isVisible={modal} />
+      <ModalCreateTask
+        categories={categories}
+        setCategories={setCategories}
+        onClose={() => setModal(false)}
+        onCreate={_onCreate}
+        isVisible={modal}
+      />
     </div>
   );
 };

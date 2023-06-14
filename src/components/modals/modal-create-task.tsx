@@ -4,25 +4,29 @@ export const ModalCreateTask = ({
   isVisible,
   onClose,
   onCreate,
+  categories,
+  setCategories,
 }: {
   isVisible: boolean;
   onClose: () => void;
   onCreate: (taskName: string, description: string, category: string) => void;
+  categories: string[];
+  setCategories: (categories: string[]) => void;
 }) => {
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
-  // const [categoryText, setCategoryText] = useState<any>("");
   const [category, setCategory] = useState("");
-  const [showCategory, setShowCategory] = useState(false);
-  const [categories, setCatogires] = useState<string[]>(["1", "2"]);
-  // const [deadLine, setDeadLine] = useState('');
+  // const [showCategory, setShowCategory] = useState(false);
 
   const _onCreate = () => {
     onCreate(taskName, description, category);
     onClose();
   };
 
-  
+  const _onAddCategory = () => {
+    // @ts-ignore
+    setCategories((current) => [...current, category]);
+  };
 
   if (!isVisible) return null;
   return (
@@ -57,33 +61,18 @@ export const ModalCreateTask = ({
               onChange={(e) => setCategory(e.target.value)}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
             />
-            <button
-              className="inline p-1 h-6 bg-blue-500 text-white rounded self-center"
-              onClick={() => {
-                setShowCategory(!showCategory);
-                setCatogires([...categories, category]);
-              }}
-            >
+            <button className="inline p-1 h-6 bg-blue-500 text-white rounded self-center" onClick={_onAddCategory}>
               <i className="">+</i>
             </button>
-
-            {/* {showCategory && (
-            <input
-              type="text"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
-            />
-          )} */}
-            {/* can use another ternary operator instead  */}
           </div>
           <select
             onChange={(e) => setCategory(e.target.value)}
             id="category"
             className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5"
           >
-            <option>1</option>
-            <option>2</option>
+            {categories?.map((item) => (
+              <option key={item}>{item}</option>
+            ))}
           </select>
         </div>
         <BottomButtonRow onCancel={onClose} onCreate={_onCreate} />
@@ -92,13 +81,7 @@ export const ModalCreateTask = ({
   );
 };
 
-const BottomButtonRow = ({
-  onCreate,
-  onCancel,
-}: {
-  onCreate: () => void;
-  onCancel: () => void;
-}) => {
+const BottomButtonRow = ({ onCreate, onCancel }: { onCreate: () => void; onCancel: () => void }) => {
   return (
     <div className="flex items-center gap-2">
       <button
