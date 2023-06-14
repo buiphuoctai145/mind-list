@@ -46,7 +46,7 @@ export const TaskItem = ({
               )}
             </div>
             </th>
-            <td className="px-6 py-4">
+            <td className="px-6 py-4 text-center">
               <div className="grow">
                 {data.checked ? (
                   <p className="font-bold line-through">{data.category}</p>

@@ -59,10 +59,13 @@ export const MindList = () => {
                 Category
               </th>
               <th scope="col" className="px-6 py-3">
-                CTA
+                
               </th>
             </tr>
           </thead>
+          <tbody>
+
+          </tbody>
         </table>
         {todoList.map((todo, index) => (
               <TaskItem
