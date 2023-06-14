@@ -12,7 +12,6 @@ export const MindList = () => {
   const _onCreate = (taskName: string, description: string, category: string) => {
     // setTodoList([...todoList, { name: taskName, description }]);
     setTodoList((current) => [...current, { name: taskName, description, category }]);
-
     _addCategory(category);
   };
 
@@ -89,24 +88,24 @@ const TEST_DATA = [
     description: "an com",
     category: "housework",
   },
-  {
-    name: "nau com",
-    description: "nau com",
-    category: "housework",
-  },
-  {
-    name: "quet nha",
-    description: "quet nha",
-    category: "housework",
-  },
-  {
-    name: "freelance",
-    description: "di lam",
-    category: "job",
-  },
-  {
-    name: "qc",
-    description: "di lam",
-    category: "job",
-  },
+  // {
+  //   name: "nau com",
+  //   description: "nau com",
+  //   category: "housework",
+  // },
+  // {
+  //   name: "quet nha",
+  //   description: "quet nha",
+  //   category: "housework",
+  // },
+  // {
+  //   name: "freelance",
+  //   description: "di lam",
+  //   category: "job",
+  // },
+  // {
+  //   name: "qc",
+  //   description: "di lam",
+  //   category: "job",
+  // },
 ];
