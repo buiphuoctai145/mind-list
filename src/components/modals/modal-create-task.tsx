@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export const ModalCreateTask = ({
   isVisible,
@@ -14,7 +14,29 @@ export const ModalCreateTask = ({
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [showAutocompleted, setShowAutocompleted] = useState(false);
+  const [suggestCategories, setSuggestCategories] = useState<string[]>([]);
+
+  const suggestPanelRef = useRef<any>();
+
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (suggestPanelRef.current && !suggestPanelRef.current.contains(event.target)) {
+        setSuggestCategories([]);
+      }
+    };
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, []);
+
+  const _onChangeCategoryInput = (e: any) => {
+    const { value } = e.target;
+    setCategory(value);
+
+    const newSuggestCategories = categories.filter((item) => item.includes(value));
+    setSuggestCategories(newSuggestCategories);
+  };
 
   const _onCreate = () => {
     onCreate(taskName, description, category);
@@ -51,23 +73,22 @@ export const ModalCreateTask = ({
             <input
               type="text"
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              onFocus={() => setShowAutocompleted(true)}
+              onChange={_onChangeCategoryInput}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
             />
-            {showAutocompleted ? (
-              <div className="absolute top-10 w-full bg-white shadow">
-                {categories.map((category) => (
-                  <div
+            {suggestCategories?.length ? (
+              <div ref={suggestPanelRef} className="absolute top-10 w-full bg-white shadow flex flex-col">
+                {suggestCategories.map((category) => (
+                  <button
                     key={category}
-                    className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                    className="px-3 py-2 text-left hover:bg-gray-100 cursor-pointer"
                     onClick={() => {
                       setCategory(category);
-                      setShowAutocompleted(false);
+                      setSuggestCategories([]);
                     }}
                   >
                     {category}
-                  </div>
+                  </button>
                 ))}
               </div>
             ) : null}
