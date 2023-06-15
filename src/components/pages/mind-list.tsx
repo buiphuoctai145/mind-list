@@ -5,7 +5,6 @@ import { TaskItem } from "./task-item";
 
 export const MindList = () => {
   const [modal, setModal] = useState(false);
-
   const [todoList, setTodoList] = useState<Todo[]>(TEST_DATA);
   const [categories, setCategories] = useState<string[]>(["homework", "job"]);
 
@@ -33,9 +32,11 @@ export const MindList = () => {
     newTodoList.splice(index, 1);
     setTodoList(newTodoList);
   };
-
+  
   // const completedTask = todoList.filter((item) => item.checked).length;
   const completedTask = useMemo(() => todoList.filter((item) => item.checked).length, [todoList]);
+  // khi todoList thay doi thi thang useMemo se tinh lai, neu todoList khong thay doi thi useMemo se lay gia tri cu~
+  // khi Dependencies thay doi, useMemo tra ve value, useCallback tra ve function
 
   return (
     <div>
@@ -88,24 +89,24 @@ const TEST_DATA = [
     description: "an com",
     category: "housework",
   },
-  // {
-  //   name: "nau com",
-  //   description: "nau com",
-  //   category: "housework",
-  // },
-  // {
-  //   name: "quet nha",
-  //   description: "quet nha",
-  //   category: "housework",
-  // },
-  // {
-  //   name: "freelance",
-  //   description: "di lam",
-  //   category: "job",
-  // },
-  // {
-  //   name: "qc",
-  //   description: "di lam",
-  //   category: "job",
-  // },
+  {
+    name: "nau com",
+    description: "nau com",
+    category: "housework",
+  },
+  {
+    name: "quet nha",
+    description: "quet nha",
+    category: "ejoy",
+  },
+  {
+    name: "freelance",
+    description: "di lam",
+    category: "movie",
+  },
+  {
+    name: "qc",
+    description: "di lam",
+    category: "job",
+  },
 ];

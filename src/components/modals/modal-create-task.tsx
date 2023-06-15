@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 
 export const ModalCreateTask = ({
   isVisible,
@@ -16,34 +16,40 @@ export const ModalCreateTask = ({
   const [category, setCategory] = useState("");
   const [suggestCategories, setSuggestCategories] = useState<string[]>([]);
 
-  const suggestPanelRef = useRef<any>();
+  // const suggestPanelRef = useRef<any>();
 
-  useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (suggestPanelRef.current && !suggestPanelRef.current.contains(event.target)) {
-        setSuggestCategories([]);
-      }
-    };
-    document.addEventListener("click", handleClickOutside, true);
-    return () => {
-      document.removeEventListener("click", handleClickOutside, true);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const handleClickOutside = (event: any) => {
+  //     console.log(suggestPanelRef.current)
+  //     if (
+  //       suggestPanelRef.current &&
+  //       !suggestPanelRef.current.contains(event.target)
+  //     ) {
+  //       setSuggestCategories([]);
+  //     }
+  //   };
+  //   document.addEventListener("click", handleClickOutside, true);
+  //   return () => {
+  //     document.removeEventListener("click", handleClickOutside, true);
+  //   };
+  // }, []);
 
   const _onChangeCategoryInput = (e: any) => {
     const { value } = e.target;
     setCategory(value);
 
-    const newSuggestCategories = categories.filter((item) => item.includes(value));
+    const newSuggestCategories = categories.filter((item) =>
+      item.includes(value)
+    );
     setSuggestCategories(newSuggestCategories);
   };
 
   const _onCreate = () => {
     onCreate(taskName, description, category);
     onClose();
-    setTaskName('');
-    setDescription('');
-    setCategory('')
+    setTaskName("");
+    setDescription("");
+    setCategory("");
   };
 
   if (!isVisible) return null;
@@ -77,14 +83,31 @@ export const ModalCreateTask = ({
               type="text"
               value={category}
               onChange={_onChangeCategoryInput}
+              onFocus={() => {
+                var a = categories.filter((item) => item.includes(category));
+                setSuggestCategories(a);
+              }}
+              onBlur={(e) => {
+                // console.log(e.relatedTarget?.classList)
+                if (
+                  !e.relatedTarget ||
+                  !e.relatedTarget.classList.contains("category-item")
+                  // click vô bất kỳ đâu trừ thằng category list thì set suggesst...  sẽ rỗng
+                ) {
+                  setSuggestCategories([]);
+                }
+              }}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
             />
             {suggestCategories?.length ? (
-              <div ref={suggestPanelRef} className="absolute top-10 w-full bg-white shadow flex flex-col">
+              <div
+                // ref={suggestPanelRef}
+                className="absolute top-10 w-full bg-white shadow flex flex-col"
+              >
                 {suggestCategories.map((category) => (
                   <button
                     key={category}
-                    className="px-3 py-2 text-left hover:bg-gray-100 cursor-pointer"
+                    className="category-item px-3 py-2 text-left hover:bg-gray-100 cursor-pointer"
                     onClick={() => {
                       setCategory(category);
                       setSuggestCategories([]);
@@ -103,7 +126,13 @@ export const ModalCreateTask = ({
   );
 };
 
-const BottomButtonRow = ({ onCreate, onCancel }: { onCreate: () => void; onCancel: () => void }) => {
+const BottomButtonRow = ({
+  onCreate,
+  onCancel,
+}: {
+  onCreate: () => void;
+  onCancel: () => void;
+}) => {
   return (
     <div className="flex items-center gap-2">
       <button
