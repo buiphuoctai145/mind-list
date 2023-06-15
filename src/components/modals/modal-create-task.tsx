@@ -84,7 +84,7 @@ export const ModalCreateTask = ({
               value={category}
               onChange={_onChangeCategoryInput}
               onFocus={() => {
-                var a = categories.filter((item) => item.includes(category));
+                const a = categories.filter((item) => item.includes(category));
                 setSuggestCategories(a);
               }}
               onBlur={(e) => {
