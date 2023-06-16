@@ -1,21 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-export const ModalCreateTask = ({
+export const ModalEditTask = ({
   isVisible,
   onClose,
-  onCreate,
+  onEdit,
   categories,
+  data,
 }: {
   isVisible: boolean;
   onClose: () => void;
-  onCreate: (taskName: string, description: string, category: string) => void;
+  onEdit: (taskName: string, description: string, category: string) => void;
   categories: string[];
+  data:any;
 }) => {
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [suggestCategories, setSuggestCategories] = useState<string[]>([]);
+  
+  useEffect (() => {
+    console.log('abc')
+    if (isVisible){
+        setTaskName(data.name)
+        setDescription(data.description)
+        setCategory(data.category)
+        console.log(data)
+    }
+    },[isVisible]
 
+  )
   // const suggestPanelRef = useRef<any>();
 
   // useEffect(() => {
@@ -44,8 +57,8 @@ export const ModalCreateTask = ({
     setSuggestCategories(newSuggestCategories);
   };
 
-  const _onCreate = () => {
-    onCreate(taskName, description, category);
+  const _onEdit = () => {
+    onEdit(taskName, description, category);
     onClose();
     setTaskName("");
     setDescription("");
@@ -56,7 +69,7 @@ export const ModalCreateTask = ({
   return (
     <div className="fixed top-0 h-screen w-screen bg-black/80 flex flex-col items-center justify-center">
       <div className="w-96 flex flex-col bg-white rounded-lg p-5">
-        <div className="text-2xl font-medium text-center">Create new task</div>
+        <div className="text-2xl font-medium text-center">Edit task</div>
 
         <div className="mb-4">
           <label className="block font-bold mb-2">Task name</label>
@@ -120,26 +133,26 @@ export const ModalCreateTask = ({
             ) : null}
           </div>
         </div>
-        <BottomButtonRow onCancel={onClose} onCreate={_onCreate} />
+        <BottomButtonRow onCancel={onClose} onEdit={_onEdit} />
       </div>
     </div>
   );
 };
 
 const BottomButtonRow = ({
-  onCreate,
+  onEdit,
   onCancel,
 }: {
-  onCreate: () => void;
+  onEdit: () => void;
   onCancel: () => void;
 }) => {
   return (
     <div className="flex items-center gap-2">
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        onClick={onCreate}
+        onClick={onEdit}
       >
-        Create
+        Edit
       </button>
       <div className="header-container test text-center"
       onClick={() => {

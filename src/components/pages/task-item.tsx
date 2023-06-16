@@ -6,10 +6,12 @@ export const TaskItem = ({
   data,
   onCheck,
   onRemove,
+  onEdit,
 }: {
   data: Todo;
   onCheck?: () => void;
   onRemove?: () => void;
+  onEdit?: () => void;
 }) => {
   return (
     <div className="relative overflow-x-auto">
@@ -57,6 +59,12 @@ export const TaskItem = ({
             </td>
             <td className="px-6 py-4">
               <div className="flex-none float-right">
+                <button
+                  onClick={onEdit}
+                  className="bg-blue-500 p-2 rounded-md text-white"
+                >
+                  Edit
+                </button>
                 <button
                   onClick={onRemove}
                   className="bg-red-500 p-2 rounded-md text-white"

@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { ModalCreateTask } from "../modals";
+import { ModalCreateTask, ModalEditTask } from "../modals";
 import { Todo } from "src/types/todo";
 import { TaskItem } from "./task-item";
 
@@ -7,10 +7,19 @@ export const MindList = () => {
   const [modal, setModal] = useState(false);
   const [todoList, setTodoList] = useState<Todo[]>(TEST_DATA);
   const [categories, setCategories] = useState<string[]>(["homework", "job"]);
+  const [showmModalEdit, setShowModalEdit] = useState(false);
+  const [selectedTaskIndex, setSelectedTaskIndex] = useState(-1);
 
-  const _onCreate = (taskName: string, description: string, category: string) => {
+  const _onCreate = (
+    taskName: string,
+    description: string,
+    category: string
+  ) => {
     // setTodoList([...todoList, { name: taskName, description }]);
-    setTodoList((current) => [...current, { name: taskName, description, category }]);
+    setTodoList((current) => [
+      ...current,
+      { name: taskName, description, category },
+    ]);
     _addCategory(category);
   };
 
@@ -32,9 +41,22 @@ export const MindList = () => {
     newTodoList.splice(index, 1);
     setTodoList(newTodoList);
   };
-  
+  const _onShowModalEdit = (index: number) => {
+    setShowModalEdit(true);
+    setSelectedTaskIndex(index);
+  };
+
+  const _onEdit = (taskName: string, description: string, category: string) => {
+    const newTodoList = [...todoList];
+    newTodoList[selectedTaskIndex] = { name: taskName, description, category };
+    setTodoList(newTodoList);
+  };
+
   // const completedTask = todoList.filter((item) => item.checked).length;
-  const completedTask = useMemo(() => todoList.filter((item) => item.checked).length, [todoList]);
+  const completedTask = useMemo(
+    () => todoList.filter((item) => item.checked).length,
+    [todoList]
+  );
   // khi todoList thay doi thi thang useMemo se tinh lai, neu todoList khong thay doi thi useMemo se lay gia tri cu~
   // khi Dependencies thay doi, useMemo tra ve value, useCallback tra ve function
 
@@ -42,7 +64,10 @@ export const MindList = () => {
     <div>
       <div className="header-container test text-center">
         <h3>MindList</h3>
-        <button className="mt-3 bg-blue-600 py-1 px-5 rounded-md text-white" onClick={() => setModal(true)}>
+        <button
+          className="mt-3 bg-blue-600 py-1 px-5 rounded-md text-white"
+          onClick={() => setModal(true)}
+        >
           Create task
         </button>
       </div>
@@ -62,7 +87,13 @@ export const MindList = () => {
           <tbody></tbody>
         </table>
         {todoList.map((todo, index) => (
-          <TaskItem data={todo} key={index} onCheck={() => _onCheck(index)} onRemove={() => _onRemove(index)} />
+          <TaskItem
+            data={todo}
+            key={index}
+            onCheck={() => _onCheck(index)}
+            onRemove={() => _onRemove(index)}
+            onEdit={() => _onShowModalEdit(index)}
+          />
         ))}
       </div>
       <div className="flex items-center"></div>
@@ -73,7 +104,19 @@ export const MindList = () => {
           {completedTask} / {todoList.length} completed
         </p>
       )}
-      <ModalCreateTask categories={categories} onClose={() => setModal(false)} onCreate={_onCreate} isVisible={modal} />
+      <ModalCreateTask
+        categories={categories}
+        onClose={() => setModal(false)}
+        onCreate={_onCreate}
+        isVisible={modal}
+      />
+      <ModalEditTask
+        data={todoList[selectedTaskIndex]}
+        categories={categories}
+        onClose={() => setShowModalEdit(false)}
+        onEdit={_onEdit}
+        isVisible={showmModalEdit}
+      />
     </div>
   );
 };
