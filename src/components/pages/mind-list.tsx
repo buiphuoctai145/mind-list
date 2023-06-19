@@ -1,37 +1,31 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useContext, useMemo, useRef, useState } from "react";
 import { ModalCreateTask, ModalEditTask } from "../modals";
-import { Todo } from "src/types/todo";
 import { TaskItem } from "./task-item";
+import { DataContext } from "src/context/data-context";
 
 function replaceItem(array: any[], fromIndex: number, toIndex: number): any[] {
-  const result = [...array]
+  const result = [...array];
 
-  result.splice(fromIndex, 0, array[toIndex])
+  result.splice(fromIndex, 0, array[toIndex]);
 
-  result.splice(toIndex + 1, 1)
+  result.splice(toIndex + 1, 1);
 
-  return result
+  return result;
 }
 
 export const MindList = () => {
+  const { todoList, setTodoList } = useContext(DataContext);
+
   const [modal, setModal] = useState(false);
-  const [todoList, setTodoList] = useState<Todo[]>(TEST_DATA);
   const [categories, setCategories] = useState<string[]>(["homework", "job"]);
   const [showmModalEdit, setShowModalEdit] = useState(false);
   const [selectedTaskIndex, setSelectedTaskIndex] = useState(-1);
   const startUnpinIndex = useRef(0);
   const previousTodoList = useRef(TEST_DATA);
 
-  const _onCreate = (
-    taskName: string,
-    description: string,
-    category: string
-  ) => {
+  const _onCreate = (taskName: string, description: string, category: string) => {
     // setTodoList([...todoList, { name: taskName, description }]);
-    setTodoList((current) => [
-      ...current,
-      { name: taskName, description, category },
-    ]);
+    setTodoList((current) => [...current, { name: taskName, description, category }]);
     _addCategory(category);
   };
 
@@ -65,10 +59,7 @@ export const MindList = () => {
   };
 
   // const completedTask = todoList.filter((item) => item.checked).length;
-  const completedTask = useMemo(
-    () => todoList.filter((item) => item.checked).length,
-    [todoList]
-  );
+  const completedTask = useMemo(() => todoList.filter((item) => item.checked).length, [todoList]);
   // khi todoList thay doi thi thang useMemo se tinh lai, neu todoList khong thay doi thi useMemo se lay gia tri cu~
   // khi Dependencies thay doi, useMemo tra ve value, useCallback tra ve function
 
@@ -87,7 +78,7 @@ export const MindList = () => {
       newTodoList = replaceItem(todoList, startUnpinIndex.current, index);
     }
     if (isPin) {
-      setTodoList(previousTodoList.current)
+      setTodoList(previousTodoList.current);
     } else {
       previousTodoList.current = todoList;
       setTodoList(newTodoList);
@@ -99,10 +90,7 @@ export const MindList = () => {
     <div>
       <div className="header-container test text-center">
         <h3>MindList</h3>
-        <button
-          className="mt-3 bg-blue-600 py-1 px-5 rounded-md text-white"
-          onClick={() => setModal(true)}
-        >
+        <button className="mt-3 bg-blue-600 py-1 px-5 rounded-md text-white" onClick={() => setModal(true)}>
           Create task
         </button>
       </div>
@@ -142,12 +130,7 @@ export const MindList = () => {
         </p>
       )}
 
-      <ModalCreateTask
-        categories={categories}
-        onClose={() => setModal(false)}
-        onCreate={_onCreate}
-        isVisible={modal}
-      />
+      <ModalCreateTask categories={categories} onClose={() => setModal(false)} onCreate={_onCreate} isVisible={modal} />
       <ModalEditTask
         data={todoList[selectedTaskIndex]}
         categories={categories}
@@ -159,7 +142,7 @@ export const MindList = () => {
   );
 };
 
-const TEST_DATA = [
+export const TEST_DATA = [
   {
     name: "hoc",
     description: "study",
