@@ -66,7 +66,7 @@ export const TaskItem = ({
                   onClick={onPin}
                   className="bg-pink-500 ml-2 p-2 rounded-md text-white"
                 >
-                  Pin task
+                  {data.isPin ? 'Unpin' : 'Pin'} task
                 </button>
                 <button
                   onClick={onFlag}

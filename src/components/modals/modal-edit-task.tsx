@@ -19,7 +19,6 @@ export const ModalEditTask = ({
   const [suggestCategories, setSuggestCategories] = useState<string[]>([]);
 
   useEffect(() => {
-    console.log("abc");
     if (isVisible) {
       setTaskName(data.name);
       setDescription(data.description);

@@ -1,7 +1,17 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { ModalCreateTask, ModalEditTask } from "../modals";
 import { Todo } from "src/types/todo";
 import { TaskItem } from "./task-item";
+
+function replaceItem(array: any[], fromIndex: number, toIndex: number): any[] {
+  const result = [...array]
+
+  result.splice(fromIndex, 0, array[toIndex])
+
+  result.splice(toIndex + 1, 1)
+
+  return result
+}
 
 export const MindList = () => {
   const [modal, setModal] = useState(false);
@@ -9,6 +19,8 @@ export const MindList = () => {
   const [categories, setCategories] = useState<string[]>(["homework", "job"]);
   const [showmModalEdit, setShowModalEdit] = useState(false);
   const [selectedTaskIndex, setSelectedTaskIndex] = useState(-1);
+  const startUnpinIndex = useRef(0);
+  const previousTodoList = useRef(TEST_DATA);
 
   const _onCreate = (
     taskName: string,
@@ -59,17 +71,29 @@ export const MindList = () => {
   );
   // khi todoList thay doi thi thang useMemo se tinh lai, neu todoList khong thay doi thi useMemo se lay gia tri cu~
   // khi Dependencies thay doi, useMemo tra ve value, useCallback tra ve function
-  
-  const _onFlag = (index:any) => {
+
+  const _onFlag = (index: any) => {
     const newTodoList = [...todoList];
     newTodoList[index].flagged = !newTodoList[index].flagged;
     setTodoList(newTodoList);
   };
 
-  const _onPin = (index:any) => {
-
-  }
-
+  const _onPin = (index: any, isPin: any) => {
+    // const newTodoList = [...todoList];
+    // newTodoList[index].
+    let newTodoList = [...todoList];
+    newTodoList[index].isPin = !isPin;
+    if (index > startUnpinIndex.current) {
+      newTodoList = replaceItem(todoList, startUnpinIndex.current, index);
+    }
+    if (isPin) {
+      setTodoList(previousTodoList.current)
+    } else {
+      previousTodoList.current = todoList;
+      setTodoList(newTodoList);
+    }
+    startUnpinIndex.current += isPin ? -1 : 1;
+  };
 
   return (
     <div>
@@ -81,7 +105,6 @@ export const MindList = () => {
         >
           Create task
         </button>
-        
       </div>
       <div className="flex flex-col gap-2 p-5">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -106,7 +129,7 @@ export const MindList = () => {
             onRemove={() => _onRemove(index)}
             onEdit={() => _onShowModalEdit(index)}
             onFlag={() => _onFlag(index)}
-            onPin={() => _onPin(index)}
+            onPin={() => _onPin(index, todo.isPin)}
           />
         ))}
       </div>

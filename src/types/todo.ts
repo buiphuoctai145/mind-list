@@ -5,4 +5,5 @@ export interface Todo {
   // deadline: string;
   checked?: boolean;
   flagged?: boolean;
+  isPin?: boolean
 }
