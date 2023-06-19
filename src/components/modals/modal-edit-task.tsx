@@ -65,7 +65,9 @@ export const ModalEditTask = ({
 
   if (!isVisible) return null;
   return (
-    <div className="fixed top-0 h-screen w-screen bg-black/80 flex flex-col items-center justify-center">
+    <div className="fixed top-0 h-screen w-screen bg-black/80 flex flex-col items-center justify-center"
+    onClick={onClose}
+    >
       <div className="w-96 flex flex-col bg-white rounded-lg p-5">
         <div className="text-2xl font-medium text-center">Edit task</div>
 

@@ -66,6 +66,10 @@ export const MindList = () => {
     setTodoList(newTodoList);
   };
 
+  const _onPin = (index:any) => {
+
+  }
+
 
   return (
     <div>
@@ -102,6 +106,7 @@ export const MindList = () => {
             onRemove={() => _onRemove(index)}
             onEdit={() => _onShowModalEdit(index)}
             onFlag={() => _onFlag(index)}
+            onPin={() => _onPin(index)}
           />
         ))}
       </div>

@@ -7,12 +7,14 @@ export const TaskItem = ({
   onRemove,
   onEdit,
   onFlag,
+  onPin,
 }: {
   data: Todo;
   onCheck?: () => void;
   onRemove?: () => void;
   onEdit?: () => void;
   onFlag?: () => void;
+  onPin?: () => void;
 }) => {
   return (
     <div className="relative overflow-x-auto">
@@ -60,6 +62,12 @@ export const TaskItem = ({
             </td>
             <td className="px-6 py-4">
               <div className="flex-none float-right">
+                <button
+                  onClick={onPin}
+                  className="bg-pink-500 ml-2 p-2 rounded-md text-white"
+                >
+                  Pin task
+                </button>
                 <button
                   onClick={onFlag}
                   className="bg-green-500 ml-2 p-2 rounded-md text-white"
