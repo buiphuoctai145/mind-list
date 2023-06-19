@@ -11,24 +11,22 @@ export const ModalEditTask = ({
   onClose: () => void;
   onEdit: (taskName: string, description: string, category: string) => void;
   categories: string[];
-  data:any;
+  data: any;
 }) => {
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [suggestCategories, setSuggestCategories] = useState<string[]>([]);
-  
-  useEffect (() => {
-    console.log('abc')
-    if (isVisible){
-        setTaskName(data.name)
-        setDescription(data.description)
-        setCategory(data.category)
-        console.log(data)
-    }
-    },[isVisible]
 
-  )
+  useEffect(() => {
+    console.log("abc");
+    if (isVisible) {
+      setTaskName(data.name);
+      setDescription(data.description);
+      setCategory(data.category);
+      console.log(data);
+    }
+  }, [isVisible]);
   // const suggestPanelRef = useRef<any>();
 
   // useEffect(() => {
@@ -154,28 +152,14 @@ const BottomButtonRow = ({
       >
         Edit
       </button>
-      <div className="header-container test text-center"
-      onClick={() => {
-        onCancel();
-      }}
-      >
-        <div className="header-container test text-center"
-        onClick={(e) => {
-          e.stopPropagation();
-        }}    
-        >
-          <button onClick={onCancel}>Cancel</button>
-        </div>
-      </div>
-      {/* <button
+      <button
         className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         onClick={() => {
           onCancel();
-        }} 
-      > 
+        }}
+      >
         Cancel
-      </button> */}
-
+      </button>
     </div>
   );
 };

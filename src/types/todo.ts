@@ -4,4 +4,5 @@ export interface Todo {
   category: string;
   // deadline: string;
   checked?: boolean;
+  flagged?: boolean;
 }

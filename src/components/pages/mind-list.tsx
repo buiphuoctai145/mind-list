@@ -59,6 +59,13 @@ export const MindList = () => {
   );
   // khi todoList thay doi thi thang useMemo se tinh lai, neu todoList khong thay doi thi useMemo se lay gia tri cu~
   // khi Dependencies thay doi, useMemo tra ve value, useCallback tra ve function
+  
+  const _onFlag = (index:any) => {
+    const newTodoList = [...todoList];
+    newTodoList[index].flagged = !newTodoList[index].flagged;
+    setTodoList(newTodoList);
+  };
+
 
   return (
     <div>
@@ -70,6 +77,7 @@ export const MindList = () => {
         >
           Create task
         </button>
+        
       </div>
       <div className="flex flex-col gap-2 p-5">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -93,6 +101,7 @@ export const MindList = () => {
             onCheck={() => _onCheck(index)}
             onRemove={() => _onRemove(index)}
             onEdit={() => _onShowModalEdit(index)}
+            onFlag={() => _onFlag(index)}
           />
         ))}
       </div>
@@ -104,6 +113,7 @@ export const MindList = () => {
           {completedTask} / {todoList.length} completed
         </p>
       )}
+
       <ModalCreateTask
         categories={categories}
         onClose={() => setModal(false)}

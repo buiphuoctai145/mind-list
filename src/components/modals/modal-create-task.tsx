@@ -54,7 +54,9 @@ export const ModalCreateTask = ({
 
   if (!isVisible) return null;
   return (
-    <div className="fixed top-0 h-screen w-screen bg-black/80 flex flex-col items-center justify-center">
+    <div className="fixed top-0 h-screen w-screen bg-black/80 flex flex-col items-center justify-center" 
+    onClick={onClose}
+    >
       <div className="w-96 flex flex-col bg-white rounded-lg p-5">
         <div className="text-2xl font-medium text-center">Create new task</div>
 
@@ -141,28 +143,12 @@ const BottomButtonRow = ({
       >
         Create
       </button>
-      <div className="header-container test text-center"
-      onClick={() => {
-        onCancel();
-      }}
-      >
-        <div className="header-container test text-center"
-        onClick={(e) => {
-          e.stopPropagation();
-        }}    
-        >
-          <button onClick={onCancel}>Cancel</button>
-        </div>
-      </div>
-      {/* <button
+      <button
         className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        onClick={() => {
-          onCancel();
-        }} 
-      > 
+        onClick={onCancel}
+      >
         Cancel
-      </button> */}
-
+      </button>
     </div>
   );
 };
